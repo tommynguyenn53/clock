@@ -1,0 +1,127 @@
+/* Universal selector for all elements, including pseudo-elements (::after, ::before). */
+*, *::after, *::before {
+  /* Ensures consistent box-sizing for padding and border calculations. */
+  box-sizing: border-box;
+  /* Sets a consistent font for all text, using Gotham Rounded if available, or a sans-serif fallback. */
+  font-family: Gotham Rounded, sans-serif;
+}
+
+/* Styles for the body element to center the clock and set a background. */
+body {
+  /* A gradient background transitioning from blue to teal. */
+  background: linear-gradient(to right, hsl(200, 100%, 50%), hsl(175, 100%, 50%));
+  /* Centers content horizontally and vertically. */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Ensures the body takes up the entire viewport height. */
+  min-height: 100vh;
+  /* Hides any overflow content outside the viewport. */
+  overflow: hidden;
+}
+
+/* Main container for the clock. */
+.clock {
+  /* Sets a fixed width and height for the clock. */
+  width: 300px;
+  height: 300px;
+  /* Semi-transparent white background for the clock face. */
+  background-color: rgba(255, 255, 255, 0.8);
+  /* Makes the clock circular. */
+  border-radius: 50%;
+  /* Thin black border around the clock face. */
+  border: 2px solid black;
+  /* Allows positioning of child elements relative to this container. */
+  position: relative;
+}
+
+/* Styling for the clock numbers (1 to 12). */
+.clock .number {
+  /* Custom property for rotation (var(--rotation) sets each number's position). */
+  --rotation: 0;
+  /* Makes numbers absolutely positioned within the clock face. */
+  position: absolute;
+  /* Ensures the numbers fill the clock face. */
+  width: 100%;
+  height: 100%;
+  /* Aligns numbers to the center. */
+  text-align: center;
+  /* Rotates the numbers to their respective positions. */
+  transform: rotate(var(--rotation));
+  /* Sets font size for the numbers. */
+  font-size: 1.5rem;
+}
+
+/* Individual rotations for each clock number, using custom properties. */
+.clock .number1 { --rotation: 30deg; }
+.clock .number2 { --rotation: 60deg; }
+.clock .number3 { --rotation: 90deg; }
+.clock .number4 { --rotation: 120deg; }
+.clock .number5 { --rotation: 150deg; }
+.clock .number6 { --rotation: 180deg; }
+.clock .number7 { --rotation: 210deg; }
+.clock .number8 { --rotation: 240deg; }
+.clock .number9 { --rotation: 270deg; }
+.clock .number10 { --rotation: 300deg; }
+.clock .number11 { --rotation: 330deg; }
+
+/* Styling for the clock hands (hour, minute, second). */
+.clock .hand {
+  /* Custom property for rotation (var(--rotation)). */
+  --rotation: 0;
+  /* Absolutely positions the hands within the clock face. */
+  position: absolute;
+  /* Anchors the bottom of the hand at the clock center. */
+  bottom: 50%;
+  left: 50%;
+  /* Adds rounded edges at the top of the hand for aesthetics. */
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  /* Moves the hand to start from the center and rotates it based on var(--rotation). */
+  transform: translateX(-50%) rotate(calc(var(--rotation) * 1deg));
+  /* Sets the origin of rotation to the bottom of the hand. */
+  transform-origin: bottom;
+  /* Ensures hands appear above other clock elements. */
+  z-index: 10;
+}
+
+/* Central pivot for the clock hands. */
+.clock::after {
+  /* Creates a small black circular pivot in the center. */
+  content: '';
+  position: absolute;
+  background-color: black;
+  z-index: 11; /* Ensures it appears above the hands. */
+  width: 15px;
+  height: 15px;
+  top: 50%;
+  left: 50%;
+  /* Centers the pivot point perfectly. */
+  transform: translate(-50%, -50%);
+  /* Makes it circular. */
+  border-radius: 50%;
+}
+
+/* Styling for the second hand. */
+.clock .hand.second {
+  /* Thin and long, with a red color for visibility. */
+  width: 3px;
+  height: 45%;
+  background-color: red;
+}
+
+/* Styling for the minute hand. */
+.clock .hand.minute {
+  /* Slightly thicker than the second hand, black in color. */
+  width: 7px;
+  height: 40%;
+  background-color: black;
+}
+
+/* Styling for the hour hand. */
+.clock .hand.hour {
+  /* Thickest of all hands, shorter than the minute hand, black in color. */
+  width: 10px;
+  height: 35%;
+  background-color: black;
+}
